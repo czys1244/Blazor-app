@@ -1,0 +1,3 @@
+﻿function files() {
+    window.showOpenFilePicker()
+}

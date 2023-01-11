@@ -1,0 +1,104 @@
+﻿@page "/apis"
+@inject IJSRuntime JsRuntime
+
+
+
+@*<input type="button" value="Pokaż API" @onclick="ShowAlert"/>*@
+<button class="btn btn-success" @onclick="ShowAlert">Show alert</button>
+<button class="btn btn-success" @onclick="Fullscreen">Fullscreen</button>
+<button class="btn btn-success" @onclick="Copy">Copy</button>
+<button class="btn btn-success" @onclick="Locate">Get geolocation</button>
+<button class="btn btn-success" @onclick="Files">Access files</button>
+<button class="btn btn-success" @onclick="Memory">Show device RAM</button>
+<button class="btn btn-success" @onclick="Request">Request notification permission</button>
+<button class="btn btn-success" @onclick="Bluetooth">Bluetooth</button>
+<div class="column">
+	<p><button type="button" @onclick="getStream">Grab video</button></p>
+
+	<video controls autoplay style="height:180px; width: 240px;" id="vid"></video>
+</div>
+
+<p id="target"></p>
+<p id="memory"></p>
+<p id="blue"></p>
+
+@code
+{
+	//private IJSObjectReference? moudle;
+	//protected override async Task OnInitializedAsync()
+	//{
+	//	moudle = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./createAlert.js");
+	//}
+	async Task ShowAlert()
+	{
+		await JsRuntime.InvokeVoidAsync("createAlert");
+	}
+}
+
+@code
+{
+	async Task Fullscreen()
+	{
+		await JsRuntime.InvokeVoidAsync("fullscreen");
+	}
+}
+
+@code
+{
+	async Task Copy()
+	{
+		await JsRuntime.InvokeVoidAsync("copy");
+	}
+}
+
+@code
+{
+	async Task Locate()
+	{
+		await JsRuntime.InvokeVoidAsync("locate");
+	}
+}
+
+@code
+{
+	async Task Files()
+	{
+		await JsRuntime.InvokeVoidAsync("files");
+	}
+}
+
+@code
+{
+	async Task Memory()
+	{
+		await JsRuntime.InvokeVoidAsync("memory");
+	}
+}
+
+@code
+{
+	async Task Request()
+	{
+		await JsRuntime.InvokeVoidAsync("request");
+	}
+}
+
+@code
+{
+	async Task getStream()
+	{
+		await JsRuntime.InvokeVoidAsync("camera");
+	}
+}
+
+@code
+{
+	async Task Bluetooth()
+	{
+		await JsRuntime.InvokeVoidAsync("bluetooth");
+	}
+}
+
+
+
+

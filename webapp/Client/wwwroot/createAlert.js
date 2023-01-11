@@ -1,0 +1,3 @@
+﻿function createAlert() {
+    alert("Hey!!");
+}

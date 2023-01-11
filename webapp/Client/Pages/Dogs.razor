@@ -1,0 +1,20 @@
+﻿@page "/dogs"
+@using Newtonsoft.Json
+@inject HttpClient client
+<PageTitle>Dogs</PageTitle>
+
+
+<input type="button" value="Pokaż zdjęcie losowego psa" @onclick="ShowRandomDog" />
+<img src="@dog" alt="Pies" style="width:400px;height:500px;">
+@code {
+	string dog;
+	private async void ShowRandomDog()
+	{
+		var response = await client.GetAsync("https://dog.ceo/api/breeds/image/random");
+		var t = await response.Content.ReadAsStringAsync();
+
+		var d = JsonConvert.DeserializeObject<dynamic>(t);
+		dog = d.message;
+		StateHasChanged();
+	}
+}

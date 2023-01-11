@@ -1,0 +1,21 @@
+﻿@page "/ip"
+
+@using Newtonsoft.Json
+@inject HttpClient client
+<PageTitle>Ip</PageTitle>
+
+
+<input type="button" value="Jakie mam IP?" @onclick="FindMyIP" />
+<div>Twoje IP to: @YourIP</div>
+
+@code {
+	string YourIP;
+	private async void FindMyIP(){
+		var response = await client.GetAsync("https://api.ipify.org/?format=json");
+		var t = await response.Content.ReadAsStringAsync();
+
+		var ip = JsonConvert.DeserializeObject<dynamic>(t);
+		YourIP = ip.ip;
+		StateHasChanged();
+	}
+}

@@ -1,0 +1,67 @@
+﻿@page "/"
+@using webapp.Shared
+@inject HttpClient httpClient;
+<PageTitle>Notes</PageTitle>
+<h3>Notes</h3>
+
+@if (noteList!=null && noteList.Count!=0)
+{
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<td>
+					Title
+				</td>
+				<td>
+					Text
+				</td>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach(var note in noteList)
+			{
+				<tr>
+					<td>@note.Title</td>
+					<td>@note.Text</td>
+					<td>
+						<button @onclick="async () => {await DeleteNote(note.Title);}">Delete</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+else{
+	<span style = "color:red;font-weight:600">No notes</span>
+}
+
+<br />
+<br />
+
+<input @bind="note.Title" placeholder="Title" />
+<input @bind="note.Text" placeholder="Text" />
+<br />
+<br />
+<button @onclick="AddNote">Add Note</button>
+
+
+@code {
+	private List<Note>? noteList;
+	private Note note = new Note();
+
+	protected override async Task OnInitializedAsync(){
+		noteList = await httpClient.GetFromJsonAsync<List<Note>>("api/Note/GetNotes");
+		await base.OnInitializedAsync();
+	} 
+
+	private async Task DeleteNote(string title){
+		await httpClient.DeleteAsync($"/api/Note/DeleteNote?title={title}");
+		noteList = await httpClient.GetFromJsonAsync<List<Note>>("api/Note/GetNotes");
+	}
+
+	private async Task AddNote(){
+		await httpClient.PostAsJsonAsync<Note>("api/Note/AddNote", note);
+		noteList = await httpClient.GetFromJsonAsync<List<Note>>("api/Note/GetNotes");
+	}
+
+}
