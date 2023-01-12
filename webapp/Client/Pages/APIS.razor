@@ -12,6 +12,7 @@
 <button class="btn btn-success" @onclick="Memory">Show device RAM</button>
 <button class="btn btn-success" @onclick="Request">Request notification permission</button>
 <button class="btn btn-success" @onclick="Bluetooth">Bluetooth</button>
+<button class="btn btn-success" @onclick="Contacts">Contacts</button>
 <div class="column">
 	<p><button type="button" @onclick="getStream">Grab video</button></p>
 
@@ -21,6 +22,7 @@
 <p id="target"></p>
 <p id="memory"></p>
 <p id="blue"></p>
+<p id="log"></p>
 
 @code
 {
@@ -96,6 +98,14 @@
 	async Task Bluetooth()
 	{
 		await JsRuntime.InvokeVoidAsync("bluetooth");
+	}
+}
+
+@code
+{
+	async Task Contacts()
+	{
+		await JsRuntime.InvokeVoidAsync("contacts");
 	}
 }
 

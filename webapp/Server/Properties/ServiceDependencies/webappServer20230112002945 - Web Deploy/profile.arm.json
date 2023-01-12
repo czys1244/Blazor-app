@@ -21,7 +21,7 @@
     },
     "resourceName": {
       "type": "string",
-      "defaultValue": "webappServer20230111004430",
+      "defaultValue": "webappServer20230112002945",
       "metadata": {
         "description": "Name of the main resource to be created by this template."
       }
